@@ -1,0 +1,41 @@
+# ───── QUALITY SETTINGS ─────
+# Download best video+audio (prefer AV1/VP9/Opus if available)
+-f "bv*[vcodec^=av01]+ba/bv*[vcodec^=vp9]+ba/bv*+ba/b"
+--merge-output-format mkv             # Merge into MKV for best compatibility with chapters/subs/etc.
+
+# Audio extraction (when using -x)
+--audio-format opus                   # Convert to Opus when extracting audio
+--audio-quality 0                     # Highest variable bitrate (VBR) for Opus
+
+# ───── COOKIES ─────
+--cookies "/home/gomi/.config/yt-dlp/www.youtube.com_cookies.txt"
+
+# ───── METADATA / EMBEDDING ─────
+--embed-metadata                      # Embed metadata like title, artist, etc.
+--embed-thumbnail                     # Embed thumbnail in video/audio file
+--embed-chapters                      # Retain video chapters (MKV supports this)
+--embed-info-json                     # Optional: embeds full metadata json into file (good for archival)
+
+# ───── SUBTITLES (IF AVAILABLE) ─────
+#--write-subs
+#--write-auto-subs
+--sub-lang "en.*"
+--embed-subs                          # Embed into video file
+
+# ───── OUTPUT NAMING ─────
+-o ~/Downloads/"%(title)s.%(ext)s"    # Clean title-based filename
+#--restrict-filenames                  # Optional: restricts to safe ASCII filenames
+
+# ───── OTHER ENHANCEMENTS ─────
+--no-mtime                            # Prevents file modified time from being set to upload date
+--progress                            # Show download progress bar (enabled by default)
+--continue                            # Resume partially downloaded files
+--retry-sleep 5                       # Wait time between retries
+--retries 10                          # Try 10 times before giving up
+--concurrent-fragments 10             # Speeds up downloads on slow connections
+--console-title                       # Show video title in terminal title bar (optional)
+#--write-info-json                     # Save metadata JSON (good for archiving)
+
+# ───── ARCHIVING (OPTIONAL) ─────
+# --download-archive ~/.config/yt-dlp/downloaded.txt
+# Prevents redownloading the same video
